@@ -23,64 +23,66 @@
     <div class="relative bg-white w-full max-w-[400px] h-[850px] max-h-[90vh] rounded-[3rem] shadow-2xl border-[8px] border-gray-800 overflow-hidden flex flex-col">
         
         <!-- Notch -->
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-40 h-7 bg-gray-800 rounded-b-xl z-50"></div>
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-40 h-7 bg-gray-800 rounded-b-xl z-50" aria-hidden="true"></div>
 
         <!-- SCREEN 1: SEARCH FLIGHTS -->
-        <div id="screen-search" class="flex-1 flex flex-col w-full h-full overflow-y-auto no-scrollbar pt-12 pb-8 px-6 fade-transition opacity-100">
+        <main id="screen-search" class="flex-1 flex flex-col w-full h-full overflow-y-auto no-scrollbar pt-12 pb-8 px-6 fade-transition opacity-100" aria-hidden="false">
             
             <!-- Header -->
-            <div class="mb-6">
-                <div class="text-xl font-bold text-gray-800 mb-4">LOGO</div>
+            <header class="mb-6">
+                <div class="text-xl font-bold text-gray-800 mb-4" role="heading" aria-level="2">LOGO</div>
                 <!-- Progress Stepper -->
-                <div class="flex items-center justify-between mb-2">
-                    <div class="flex items-center w-full">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-700 text-white font-bold text-sm">1</div>
-                        <div class="flex-1 h-0.5 bg-gray-300 mx-2"></div>
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-300 text-gray-400 font-bold text-sm">2</div>
-                        <div class="flex-1 h-0.5 bg-transparent mx-2"></div>
-                    </div>
-                </div>
+                <nav aria-label="Booking Progress">
+                    <ol class="flex items-center justify-between mb-2 list-none p-0">
+                        <li class="flex items-center w-full">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-700 text-white font-bold text-sm" aria-current="step">1</span>
+                            <div class="flex-1 h-0.5 bg-gray-300 mx-2" aria-hidden="true"></div>
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-300 text-gray-400 font-bold text-sm">2</span>
+                            <div class="flex-1 h-0.5 bg-transparent mx-2" aria-hidden="true"></div>
+                        </li>
+                    </ol>
+                </nav>
                 <div class="text-sm text-gray-500 font-medium">Search &rarr; Select Flight</div>
-            </div>
+            </header>
 
-            <h1 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Search Flights</h1>
+            <h1 class="text-2xl font-semibold text-gray-800 mb-6 text-center" tabindex="-1" id="search-heading">Search Flights</h1>
 
             <!-- Trip Type Toggle -->
-            <div class="flex rounded-lg border border-gray-300 overflow-hidden mb-6 shadow-sm">
-                <button class="flex-1 py-2 bg-gray-700 text-white text-xs font-medium flex items-center justify-center gap-1">
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+            <div class="flex rounded-lg border border-gray-300 overflow-hidden mb-6 shadow-sm" role="group" aria-label="Trip Type">
+                <button type="button" aria-pressed="true" class="flex-1 py-2 bg-gray-700 text-white text-xs font-medium flex items-center justify-center gap-1">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                     Round-trip
                 </button>
-                <button class="flex-1 py-2 bg-white text-gray-600 text-xs font-medium border-l border-gray-200 hover:bg-gray-50">One-way</button>
-                <button class="flex-1 py-2 bg-white text-gray-600 text-xs font-medium border-l border-gray-200 hover:bg-gray-50">Multi-city</button>
+                <button type="button" aria-pressed="false" class="flex-1 py-2 bg-white text-gray-600 text-xs font-medium border-l border-gray-200 hover:bg-gray-50">One-way</button>
+                <button type="button" aria-pressed="false" class="flex-1 py-2 bg-white text-gray-600 text-xs font-medium border-l border-gray-200 hover:bg-gray-50">Multi-city</button>
             </div>
 
             <!-- Search Form -->
-            <div class="space-y-5">
+            <form id="flight-search-form" class="space-y-5" onsubmit="event.preventDefault(); navigateToResults();">
                 <!-- From Input -->
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">From</label>
+                    <label for="input-from" class="block text-sm font-semibold text-gray-700 mb-1">From</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                         </div>
-                        <input type="text" placeholder="Enter city or airport" class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none transition-shadow">
+                        <input id="input-from" type="text" placeholder="Enter city or airport" class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none transition-shadow" autocomplete="off">
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                         </div>
                     </div>
                 </div>
 
                 <!-- To Input -->
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">To</label>
+                    <label for="input-to" class="block text-sm font-semibold text-gray-700 mb-1">To</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                         </div>
-                        <input type="text" placeholder="Enter city or airport" class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none transition-shadow">
+                        <input id="input-to" type="text" placeholder="Enter city or airport" class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none transition-shadow" autocomplete="off">
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                         </div>
                     </div>
                 </div>
@@ -88,20 +90,20 @@
                 <!-- Dates Grid -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-1">Departure Date</label>
+                        <label for="input-depart" class="block text-sm font-semibold text-gray-700 mb-1">Departure Date</label>
                         <div class="relative">
-                            <input type="text" placeholder="Select Date" class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 outline-none">
+                            <input id="input-depart" type="date" class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 outline-none text-gray-500">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-1">Return Date</label>
+                        <label for="input-return" class="block text-sm font-semibold text-gray-700 mb-1">Return Date</label>
                         <div class="relative">
-                            <input type="text" placeholder="Select Date" class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 outline-none">
+                            <input id="input-return" type="date" class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 outline-none text-gray-500">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             </div>
                         </div>
                     </div>
@@ -109,65 +111,67 @@
 
                 <!-- Passengers -->
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Passengers</label>
+                    <label for="input-passengers" class="block text-sm font-semibold text-gray-700 mb-1">Passengers</label>
                     <div class="relative">
-                        <select class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm appearance-none focus:ring-2 focus:ring-gray-500 outline-none bg-white">
+                        <select id="input-passengers" class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm appearance-none focus:ring-2 focus:ring-gray-500 outline-none bg-white">
                             <option>1 Adult | 0 Children</option>
                             <option>2 Adults | 0 Children</option>
                         </select>
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                         </div>
                     </div>
                 </div>
 
                 <!-- Cabin Class -->
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Cabin Class</label>
+                    <label for="input-cabin" class="block text-sm font-semibold text-gray-700 mb-1">Cabin Class</label>
                     <div class="relative">
-                        <select class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm appearance-none focus:ring-2 focus:ring-gray-500 outline-none bg-white">
+                        <select id="input-cabin" class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm appearance-none focus:ring-2 focus:ring-gray-500 outline-none bg-white">
                             <option>Economy</option>
                             <option>Business</option>
                             <option>First Class</option>
                         </select>
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- CTA Button -->
-            <div class="mt-8">
-                <button onclick="navigateToResults()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold py-4 px-4 border border-gray-400 rounded shadow-sm tracking-wide uppercase transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                    Search Flights
-                </button>
-            </div>
+                <!-- CTA Button -->
+                <div class="mt-8">
+                    <button type="submit" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold py-4 px-4 border border-gray-400 rounded shadow-sm tracking-wide uppercase transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        Search Flights
+                    </button>
+                </div>
+            </form>
             
             <!-- Home Button Indicator -->
-            <div class="mt-auto pt-6 flex justify-center">
+            <div class="mt-auto pt-6 flex justify-center" aria-hidden="true">
                 <div class="w-12 h-12 rounded-full border-2 border-gray-400"></div>
             </div>
-        </div>
+        </main>
 
         <!-- SCREEN 2: SELECT FLIGHT (Hidden by default) -->
-        <div id="screen-results" class="hidden flex-1 flex flex-col w-full h-full overflow-y-auto no-scrollbar pt-12 pb-8 px-6 fade-transition opacity-0">
+        <main id="screen-results" class="hidden flex-1 flex flex-col w-full h-full overflow-y-auto no-scrollbar pt-12 pb-8 px-6 fade-transition opacity-0" aria-hidden="true">
              <!-- Header -->
-             <div class="mb-4">
-                <div class="text-xl font-bold text-gray-800 mb-4">LOGO</div>
+             <header class="mb-4">
+                <div class="text-xl font-bold text-gray-800 mb-4" role="heading" aria-level="2">LOGO</div>
                 <!-- Progress Stepper -->
-                <div class="flex items-center justify-between mb-2">
-                    <div class="flex items-center w-full">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-700 text-white font-bold text-sm">1</div>
-                        <div class="flex-1 h-0.5 bg-gray-700 mx-2"></div>
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-700 text-white font-bold text-sm">2</div>
-                        <div class="flex-1 h-0.5 bg-transparent mx-2"></div>
-                    </div>
-                </div>
+                <nav aria-label="Booking Progress">
+                    <ol class="flex items-center justify-between mb-2 list-none p-0">
+                        <li class="flex items-center w-full">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-700 text-white font-bold text-sm">1</span>
+                            <div class="flex-1 h-0.5 bg-gray-700 mx-2" aria-hidden="true"></div>
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-700 text-white font-bold text-sm" aria-current="step">2</span>
+                            <div class="flex-1 h-0.5 bg-transparent mx-2" aria-hidden="true"></div>
+                        </li>
+                    </ol>
+                </nav>
                 <div class="text-sm text-gray-500 font-medium">Select Flight</div>
-            </div>
+            </header>
 
-            <h1 class="text-2xl font-semibold text-gray-800 mb-2 text-center">Select Flight</h1>
+            <h1 id="results-heading" class="text-2xl font-semibold text-gray-800 mb-2 text-center" tabindex="-1">Select Flight</h1>
             
             <!-- Flight Summary -->
             <div class="text-center mb-5">
@@ -177,72 +181,72 @@
 
             <!-- Sort Filter -->
             <div class="flex items-center justify-end mb-4">
-                <span class="text-sm text-gray-600 mr-2">Sort by:</span>
+                <label for="sort-select" class="text-sm text-gray-600 mr-2">Sort by:</label>
                 <div class="relative">
-                    <select class="appearance-none bg-white border border-gray-300 text-gray-700 py-1 pl-3 pr-8 rounded leading-tight focus:outline-none focus:border-gray-500 text-sm">
+                    <select id="sort-select" class="appearance-none bg-white border border-gray-300 text-gray-700 py-1 pl-3 pr-8 rounded leading-tight focus:outline-none focus:border-gray-500 text-sm">
                         <option>Price</option>
                         <option>Duration</option>
                         <option>Departure</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
                 </div>
             </div>
 
             <!-- Flight Cards List -->
-            <div class="space-y-4">
+            <ul class="space-y-4 list-none p-0">
                 <!-- Card 1 -->
-                <div class="border border-gray-300 rounded-lg p-4 flex justify-between items-center bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                <li class="border border-gray-300 rounded-lg p-4 flex justify-between items-center bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                     <div class="flex-1">
                         <div class="flex items-center text-gray-900 font-bold text-lg mb-1">
-                            10:00 AM <span class="mx-2 text-gray-400 font-normal text-sm">&rarr;</span> 10:00 PM
+                            10:00 AM <span class="mx-2 text-gray-400 font-normal text-sm" aria-hidden="true">&rarr;</span> <span class="sr-only">to</span> 10:00 PM
                             <span class="ml-2 text-xs font-normal text-gray-500 bg-gray-100 px-1 rounded">Direct</span>
                         </div>
                         <div class="text-sm text-gray-600 mb-1">ABC Airlines - AB123</div>
                         <div class="text-xs text-gray-500">7h 7m - Direct</div>
                     </div>
                     <div class="ml-2">
-                        <button class="border-2 border-gray-800 text-gray-900 font-bold py-1 px-3 rounded hover:bg-gray-800 hover:text-white transition-colors text-lg">
+                        <button class="border-2 border-gray-800 text-gray-900 font-bold py-1 px-3 rounded hover:bg-gray-800 hover:text-white transition-colors text-lg" aria-label="Select flight for $500">
                             $500
                         </button>
                     </div>
-                </div>
+                </li>
 
                 <!-- Card 2 -->
-                <div class="border border-gray-300 rounded-lg p-4 flex justify-between items-center bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                <li class="border border-gray-300 rounded-lg p-4 flex justify-between items-center bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                     <div class="flex-1">
                         <div class="flex items-center text-gray-900 font-bold text-lg mb-1">
-                            12:30 PM <span class="mx-2 text-gray-400 font-normal text-sm">&rarr;</span> 2:30 AM
+                            12:30 PM <span class="mx-2 text-gray-400 font-normal text-sm" aria-hidden="true">&rarr;</span> <span class="sr-only">to</span> 2:30 AM
                             <span class="ml-2 text-xs font-normal text-gray-500 bg-gray-100 px-1 rounded">1 stop</span>
                         </div>
                         <div class="text-sm text-gray-600 mb-1">XYZ Airways - XY456</div>
                         <div class="text-xs text-gray-500">11h 30m - 1 stop</div>
                     </div>
                     <div class="ml-2">
-                        <button class="border-2 border-gray-800 text-gray-900 font-bold py-1 px-3 rounded hover:bg-gray-800 hover:text-white transition-colors text-lg">
+                        <button class="border-2 border-gray-800 text-gray-900 font-bold py-1 px-3 rounded hover:bg-gray-800 hover:text-white transition-colors text-lg" aria-label="Select flight for $450">
                             $450
                         </button>
                     </div>
-                </div>
+                </li>
 
                 <!-- Card 3 -->
-                <div class="border border-gray-300 rounded-lg p-4 flex justify-between items-center bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                <li class="border border-gray-300 rounded-lg p-4 flex justify-between items-center bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                     <div class="flex-1">
                         <div class="flex items-center text-gray-900 font-bold text-lg mb-1">
-                            1:00 PM <span class="mx-2 text-gray-400 font-normal text-sm">&rarr;</span> 1:00 AM
+                            1:00 PM <span class="mx-2 text-gray-400 font-normal text-sm" aria-hidden="true">&rarr;</span> <span class="sr-only">to</span> 1:00 AM
                             <span class="ml-2 text-xs font-normal text-gray-500 bg-gray-100 px-1 rounded">1 stop</span>
                         </div>
                         <div class="text-sm text-gray-600 mb-1">Jet Worldwide - JW789</div>
                         <div class="text-xs text-gray-500">10h 10m - 1 stop</div>
                     </div>
                     <div class="ml-2">
-                        <button class="border-2 border-gray-800 text-gray-900 font-bold py-1 px-3 rounded hover:bg-gray-800 hover:text-white transition-colors text-lg">
+                        <button class="border-2 border-gray-800 text-gray-900 font-bold py-1 px-3 rounded hover:bg-gray-800 hover:text-white transition-colors text-lg" aria-label="Select flight for $475">
                             $475
                         </button>
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
 
             <!-- CTA Button -->
             <div class="mt-8">
@@ -252,10 +256,10 @@
             </div>
 
             <!-- Home Button Indicator -->
-            <div class="mt-auto pt-6 flex justify-center">
+            <div class="mt-auto pt-6 flex justify-center" aria-hidden="true">
                 <div class="w-12 h-12 rounded-full border-2 border-gray-400"></div>
             </div>
-        </div>
+        </main>
 
     </div>
 
@@ -264,19 +268,27 @@
         function navigateToResults() {
             const searchScreen = document.getElementById('screen-search');
             const resultsScreen = document.getElementById('screen-results');
+            const resultsHeading = document.getElementById('results-heading');
             
             // Fade out current screen
             searchScreen.style.opacity = '0';
+            searchScreen.setAttribute('aria-hidden', 'true');
             
             setTimeout(() => {
                 searchScreen.classList.add('hidden');
                 resultsScreen.classList.remove('hidden');
+                resultsScreen.setAttribute('aria-hidden', 'false');
                 
                 // Trigger reflow to enable transition
                 void resultsScreen.offsetWidth;
                 
                 // Fade in new screen
                 resultsScreen.style.opacity = '1';
+                
+                // Manage Focus
+                if (resultsHeading) {
+                    resultsHeading.focus();
+                }
             }, 300);
         }
     </script>
