@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile UI Patterns Prototype</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        
+        /* Hide scrollbar for chrome/safari/opera */
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Smooth transitions for sliding menu */
+        .slide-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="h-screen w-full flex items-center justify-center p-4">
+
+    <!-- PHONE FRAME -->
+    <div class="relative w-full max-w-[375px] h-[750px] bg-white border-[12px] border-gray-800 rounded-[3rem] shadow-2xl overflow-hidden flex flex-col">
+        
+        <!-- TOP NOTCH / STATUS BAR AREA -->
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-gray-800 rounded-b-xl z-50"></div>
+        
+        <!-- SCREEN CONTAINER -->
+        <div id="screen-container" class="flex-1 relative overflow-hidden bg-gray-50">
+
+            <!-- ==========================
+                 0. HOME (PATTERN SELECTOR) 
+                 ========================== -->
+            <div id="screen-home" class="screen w-full h-full flex flex-col">
+                <header class="bg-gray-800 text-white p-6 pt-10 text-center shadow-md">
+                    <h1 class="text-xl font-bold tracking-wider">UI PATTERNS</h1>
+                    <p class="text-xs text-gray-400 mt-1">Select a sketch to view</p>
+                </header>
+                <div class="flex-1 overflow-y-auto p-4 space-y-3">
+                    <button onclick="nav('screen-list')" class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-left font-semibold flex justify-between items-center group">
+                        1. List View <span class="text-gray-400 group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                    <button onclick="nav('screen-tabs')" class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-left font-semibold flex justify-between items-center group">
+                        2. Bottom Tabs <span class="text-gray-400 group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                    <button onclick="nav('screen-popover')" class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-left font-semibold flex justify-between items-center group">
+                        3. Popover Menu <span class="text-gray-400 group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                    <button onclick="nav('screen-sliding')" class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-left font-semibold flex justify-between items-center group">
+                        4. Sliding Menu <span class="text-gray-400 group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                    <button onclick="nav('screen-dashboard')" class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-left font-semibold flex justify-between items-center group">
+                        5. Dashboard Grid <span class="text-gray-400 group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                    <button onclick="nav('screen-customtabs')" class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-left font-semibold flex justify-between items-center group">
+                        6. Custom Top Tabs <span class="text-gray-400 group-hover:translate-x-1 transition-transform">→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ==========================
+                 1. LIST VIEW
+                 ========================== -->
+            <div id="screen-list" class="screen hidden w-full h-full flex flex-col bg-white">
+                <!-- Header -->
+                <header class="bg-gray-300 p-4 pt-10 border-b border-gray-400 flex items-center justify-between">
+                    <button onclick="nav('screen-home')" class="text-sm font-bold text-gray-700 hover:text-black">← Back</button>
+                    <h2 class="text-lg font-bold text-gray-800 uppercase tracking-widest">Header</h2>
+                    <div class="w-8"></div> <!-- Spacer for centering -->
+                </header>
+                
+                <!-- List Content -->
+                <ul class="divide-y divide-gray-300">
+                    <li class="p-5 hover:bg-gray-100 cursor-pointer flex items-center gap-3">
+                        <span class="font-semibold text-lg">NEWS</span>
+                    </li>
+                    <li class="p-5 hover:bg-gray-100 cursor-pointer flex items-center gap-3">
+                        <span class="font-semibold text-lg">MY STUFF</span>
+                    </li>
+                    <li class="p-5 hover:bg-gray-100 cursor-pointer flex items-center gap-3">
+                        <span class="font-semibold text-lg">DOWNLOADS</span>
+                    </li>
+                    <li class="p-5 hover:bg-gray-100 cursor-pointer flex items-center gap-3">
+                        <span class="font-semibold text-lg">SYNC</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ==========================
+                 2. BOTTOM TABS
+                 ========================== -->
+            <div id="screen-tabs" class="screen hidden w-full h-full flex flex-col bg-white">
+                <!-- Header -->
+                <header class="bg-gray-300 p-4 pt-10 border-b border-gray-400 flex items-center justify-between">
+                    <button onclick="nav('screen-home')" class="text-sm font-bold text-gray-700">← Back</button>
+                    <h2 class="text-lg font-bold text-gray-800 uppercase tracking-widest">Header</h2>
+                    <div class="w-8"></div>
+                </header>
+
+                <!-- Main Content -->
+                <div class="flex-1 flex items-center justify-center">
+                    <h1 class="text-6xl font-handwriting text-gray-400 -rotate-12 select-none">NEWS</h1>
+                </div>
+
+                <!-- Bottom Tab Bar -->
+                <nav class="bg-gray-300 border-t border-gray-400 h-16 flex">
+                    <button class="flex-1 flex flex-col items-center justify-center hover:bg-gray-400/20 active:bg-gray-400/40">
+                        <div class="w-6 h-6 border-2 border-gray-700 flex items-center justify-center font-bold text-xs mb-1">N</div>
+                        <span class="text-[10px] font-bold uppercase">News</span>
+                    </button>
+                    <button class="flex-1 flex flex-col items-center justify-center hover:bg-gray-400/20 active:bg-gray-400/40">
+                        <svg class="w-6 h-6 text-gray-700 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <span class="text-[10px] font-bold uppercase">Stuff</span>
+                    </button>
+                    <button class="flex-1 flex flex-col items-center justify-center hover:bg-gray-400/20 active:bg-gray-400/40">
+                        <svg class="w-6 h-6 text-gray-700 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        <span class="text-[10px] font-bold uppercase">Down</span>
+                    </button>
+                    <button class="flex-1 flex flex-col items-center justify-center hover:bg-gray-400/20 active:bg-gray-400/40">
+                        <svg class="w-6 h-6 text-gray-700 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span class="text-[10px] font-bold uppercase">Sync</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- ==========================
+                 3. POPOVER
+                 ========================== -->
+            <div id="screen-popover" class="screen hidden w-full h-full flex flex-col bg-white relative">
+                <!-- Header -->
+                <header class="bg-gray-300 p-4 pt-10 border-b border-gray-400 flex items-center justify-between relative z-20">
+                    <div class="flex items-center gap-2">
+                        <!-- Popover Trigger -->
+                        <button id="popover-trigger" onclick="togglePopover()" class="w-8 h-8 border-2 border-gray-700 grid grid-cols-2 gap-0.5 p-1 hover:bg-gray-400/30">
+                            <div class="bg-gray-700"></div><div class="bg-gray-700"></div>
+                            <div class="bg-gray-700"></div><div class="bg-gray-700"></div>
+                        </button>
+                    </div>
+                    <h2 class="text-lg font-bold text-gray-800 uppercase tracking-widest">Header</h2>
+                    <button onclick="nav('screen-home')" class="text-sm font-bold text-gray-700">Exit</button>
+                </header>
+
+                <!-- Popover Content (Hidden by default) -->
+                <div id="popover-menu" class="hidden absolute top-[85px] left-2 bg-white border-2 border-gray-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.8)] p-2 z-30 w-48 rounded-sm">
+                    <!-- Little triangle tip -->
+                    <div class="absolute -top-2 left-3 w-4 h-4 bg-white border-t-2 border-l-2 border-gray-800 transform rotate-45"></div>
+                    
+                    <div class="grid grid-cols-2 gap-2">
+                        <button class="aspect-square border border-gray-300 flex flex-col items-center justify-center hover:bg-gray-100">
+                            <span class="text-xl font-bold">N</span>
+                            <span class="text-[10px] uppercase mt-1">News</span>
+                        </button>
+                        <button class="aspect-square border border-gray-300 flex flex-col items-center justify-center hover:bg-gray-100">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            <span class="text-[10px] uppercase mt-1">Stuff</span>
+                        </button>
+                        <button class="aspect-square border border-gray-300 flex flex-col items-center justify-center hover:bg-gray-100">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            <span class="text-[10px] uppercase mt-1">Down</span>
+                        </button>
+                        <button class="aspect-square border border-gray-300 flex flex-col items-center justify-center hover:bg-gray-100">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            <span class="text-[10px] uppercase mt-1">Sync</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="flex-1 flex items-center justify-center">
+                    <h1 class="text-6xl font-handwriting text-gray-400 -rotate-12 select-none">NEWS</h1>
+                </div>
+            </div>
+
+            <!-- ==========================
+                 4. SLIDING MENU
+                 ========================== -->
+            <div id="screen-sliding" class="screen hidden w-full h-full flex flex-col bg-white relative overflow-hidden">
+                <!-- Header -->
+                <header class="bg-gray-300 p-4 pt-10 border-b border-gray-400 flex items-center justify-between relative z-10">
+                    <button onclick="toggleSlideMenu()" class="p-1 hover:bg-gray-400/30 rounded">
+                        <svg class="w-8 h-8 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                    <h2 class="text-lg font-bold text-gray-800 uppercase tracking-widest">Header</h2>
+                    <button onclick="nav('screen-home')" class="text-sm font-bold text-gray-700">Exit</button>
+                </header>
+
+                <!-- Sliding Drawer -->
+                <div id="slide-drawer" class="slide-menu absolute top-0 left-0 h-full w-64 bg-gray-200 border-r border-gray-400 shadow-2xl z-20 transform -translate-x-full pt-24">
+                    <div class="p-4 space-y-1">
+                        <button class="w-full text-left p-3 bg-gray-300 font-bold border border-gray-400 shadow-sm">NEWS</button>
+                        <button class="w-full text-left p-3 hover:bg-gray-300 font-bold border border-transparent">MY STUFF</button>
+                        <button class="w-full text-left p-3 hover:bg-gray-300 font-bold border border-transparent">DOWNLOADS</button>
+                        <button class="w-full text-left p-3 hover:bg-gray-300 font-bold border border-transparent">SYNC</button>
+                    </div>
+                    <!-- Close handle visual -->
+                    <div class="absolute top-1/2 -right-3 w-6 h-12 flex items-center justify-center" onclick="toggleSlideMenu()">
+                        <div class="w-1 h-8 bg-gray-400 rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Overlay (click to close) -->
+                <div id="slide-overlay" onclick="toggleSlideMenu()" class="hidden absolute inset-0 bg-black/20 z-15 backdrop-blur-sm transition-opacity"></div>
+
+                <!-- Main Content -->
+                <div class="flex-1 flex items-center justify-center">
+                    <h1 class="text-6xl font-handwriting text-gray-400 -rotate-12 select-none">NEWS</h1>
+                </div>
+            </div>
+
+            <!-- ==========================
+                 5. DASHBOARD
+                 ========================== -->
+            <div id="screen-dashboard" class="screen hidden w-full h-full flex flex-col bg-white">
+                <!-- Header -->
+                <header class="bg-gray-300 p-4 pt-10 border-b border-gray-400 flex items-center justify-between">
+                    <button onclick="nav('screen-home')" class="text-sm font-bold text-gray-700">← Back</button>
+                    <h2 class="text-lg font-bold text-gray-800 uppercase tracking-widest">Header</h2>
+                    <div class="w-8"></div>
+                </header>
+
+                <!-- Grid Content -->
+                <div class="p-8 grid grid-cols-2 gap-8">
+                    <button class="aspect-square border-2 border-gray-800 rounded-lg flex flex-col items-center justify-center hover:bg-gray-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all">
+                        <span class="text-4xl font-bold mb-2">N</span>
+                        <span class="font-bold uppercase">News</span>
+                    </button>
+                    
+                    <button class="aspect-square border-2 border-gray-800 rounded-lg flex flex-col items-center justify-center hover:bg-gray-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all">
+                        <svg class="w-10 h-10 text-gray-800 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <span class="font-bold uppercase">Stuff</span>
+                    </button>
+
+                    <button class="aspect-square border-2 border-gray-800 rounded-lg flex flex-col items-center justify-center hover:bg-gray-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all">
+                        <svg class="w-10 h-10 text-gray-800 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        <span class="font-bold uppercase">Down</span>
+                    </button>
+
+                    <button class="aspect-square border-2 border-gray-800 rounded-lg flex flex-col items-center justify-center hover:bg-gray-50 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all">
+                        <svg class="w-10 h-10 text-gray-800 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span class="font-bold uppercase">Sync</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ==========================
+                 6. CUSTOM TABS (TOP)
+                 ========================== -->
+            <div id="screen-customtabs" class="screen hidden w-full h-full flex flex-col bg-white">
+                <!-- Header -->
+                <header class="bg-gray-300 p-4 pt-10 flex items-center justify-between">
+                    <button onclick="nav('screen-home')" class="text-sm font-bold text-gray-700">← Back</button>
+                    <h2 class="text-lg font-bold text-gray-800 uppercase tracking-widest">Header</h2>
+                    <div class="w-8"></div>
+                </header>
+
+                <!-- Top Tab Bar -->
+                <div class="bg-gray-300 pb-2 px-2 flex gap-1 border-b border-gray-400">
+                    <button class="flex-1 bg-gray-400/50 p-2 rounded-t-lg border-b-2 border-gray-800 flex flex-col items-center">
+                        <span class="font-bold text-xs">N</span>
+                        <span class="text-[9px] uppercase font-bold">News</span>
+                    </button>
+                    <button class="flex-1 bg-white p-2 rounded-t-lg border border-gray-400 border-b-0 flex flex-col items-center opacity-60 hover:opacity-100">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <span class="text-[9px] uppercase font-bold">Stuff</span>
+                    </button>
+                    <button class="flex-1 bg-white p-2 rounded-t-lg border border-gray-400 border-b-0 flex flex-col items-center opacity-60 hover:opacity-100">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        <span class="text-[9px] uppercase font-bold">Down</span>
+                    </button>
+                    <button class="flex-1 bg-white p-2 rounded-t-lg border border-gray-400 border-b-0 flex flex-col items-center opacity-60 hover:opacity-100">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span class="text-[9px] uppercase font-bold">Sync</span>
+                    </button>
+                </div>
+
+                <!-- Main Content -->
+                <div class="flex-1 flex items-center justify-center">
+                    <h1 class="text-6xl font-handwriting text-gray-400 -rotate-12 select-none">NEWS</h1>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- HOME BUTTON (Physical) -->
+        <div class="h-16 bg-white border-t border-gray-200 flex items-center justify-center">
+            <button onclick="nav('screen-home')" class="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center active:bg-gray-100" aria-label="Home Button">
+                <div class="w-4 h-4 border-2 border-gray-400 rounded-[4px]"></div>
+            </button>
+        </div>
+    </div>
+
+    <!-- LOGIC -->
+    <script>
+        // Navigation Logic
+        function nav(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(el => {
+                el.classList.add('hidden');
+            });
+            // Show target screen
+            document.getElementById(screenId).classList.remove('hidden');
+
+            // Reset states
+            document.getElementById('popover-menu').classList.add('hidden');
+            const drawer = document.getElementById('slide-drawer');
+            const overlay = document.getElementById('slide-overlay');
+            if(drawer) drawer.classList.add('-translate-x-full');
+            if(overlay) overlay.classList.add('hidden');
+        }
+
+        // Popover Logic
+        function togglePopover() {
+            const menu = document.getElementById('popover-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Sliding Menu Logic
+        function toggleSlideMenu() {
+            const drawer = document.getElementById('slide-drawer');
+            const overlay = document.getElementById('slide-overlay');
+            
+            if (drawer.classList.contains('-translate-x-full')) {
+                drawer.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+    </script>
+
+    <!-- REMOTE AUDIT AGENT SCRIPT -->
+    <style>
+      .audit-highlight { 
+        outline: 4px solid #6366f1 !important; 
+        outline-offset: 2px !important;
+        transition: outline 0.2s ease-in-out;
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.5) !important;
+      }
+    </style>
+    <script>
+      window.addEventListener('message', (event) => {
+        const { type, targetSelector, text, actionId } = event.data;
+        
+        const findElement = (selector, searchText) => {
+          if (selector) {
+            try {
+              const el = document.querySelector(selector);
+              if (el) return el;
+            } catch(e) {}
+          }
+          const interactives = Array.from(document.querySelectorAll('button, a, input, label, [role="button"], summary, select, textarea'));
+          return interactives.find(el => 
+            el.innerText?.toLowerCase().includes((searchText || selector || '').toLowerCase()) ||
+            el.placeholder?.toLowerCase().includes((searchText || selector || '').toLowerCase()) ||
+            el.name?.toLowerCase().includes((searchText || selector || '').toLowerCase()) ||
+            el.getAttribute('aria-label')?.toLowerCase().includes((searchText || selector || '').toLowerCase())
+          );
+        };
+
+        const element = findElement(targetSelector, text);
+
+        if (type === 'GET_COORDS') {
+          const target = element || document.body;
+          const rect = target.getBoundingClientRect();
+          window.parent.postMessage({ 
+            type: 'COORDS_RESPONSE', 
+            actionId,
+            coords: { 
+              x: rect.left + rect.width / 2, 
+              y: rect.top + rect.height / 2 
+            } 
+          }, '*');
+          return;
+        }
+
+        if (!element) return;
+
+        element.classList.add('audit-highlight');
+        setTimeout(() => element.classList.remove('audit-highlight'), 1000);
+
+        if (type === 'CLICK') {
+          element.focus();
+          const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true, view: window });
+          element.dispatchEvent(clickEvent);
+          if (typeof element.click === 'function') element.click();
+        } else if (type === 'TYPE') {
+          element.focus();
+          element.value = text || '';
+          element.dispatchEvent(new Event('input', { bubbles: true }));
+          element.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    </script>
+</body>
+</html>
