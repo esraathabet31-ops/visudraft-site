@@ -54,17 +54,17 @@
                 <div class="text-xl font-bold tracking-wider mb-6">LOGO</div>
                 
                 <!-- Progress Steps -->
-                <div class="flex items-center justify-between mb-2 px-4">
-                    <div class="flex flex-col items-center relative z-10">
-                        <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center font-bold text-sm">1</div>
+                <div class="flex items-center justify-between mb-2 px-4" role="list">
+                    <div class="flex flex-col items-center relative z-10" role="listitem">
+                        <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center font-bold text-sm" aria-current="step">1</div>
                     </div>
-                    <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative top-[-10px]"></div>
-                    <div class="flex flex-col items-center relative z-10">
+                    <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative top-[-10px]" aria-hidden="true"></div>
+                    <div class="flex flex-col items-center relative z-10" role="listitem">
                         <div class="w-8 h-8 rounded-full bg-white border-2 border-gray-300 text-gray-400 flex items-center justify-center font-bold text-sm">2</div>
                     </div>
-                    <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative top-[-10px]"></div>
+                    <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative top-[-10px]" aria-hidden="true"></div>
                     <div class="w-4"></div> <!-- Spacer for arrow visual -->
-                    <i class="fas fa-chevron-right text-gray-400 absolute right-6 top-[86px]"></i>
+                    <i class="fas fa-chevron-right text-gray-400 absolute right-6 top-[86px]" aria-hidden="true"></i>
                 </div>
                 <div class="flex justify-between text-sm text-gray-600 px-2">
                     <span class="font-medium text-gray-900">Search</span>
@@ -79,41 +79,41 @@
                 <h1 class="text-2xl font-semibold text-center mb-6">Search Flights</h1>
 
                 <!-- Trip Type Toggle -->
-                <div class="flex rounded-md border border-gray-300 overflow-hidden mb-6 text-sm">
-                    <button class="flex-1 py-2 bg-gray-700 text-white flex items-center justify-center gap-1">
-                        <i class="fas fa-check-circle text-xs"></i> Round-trip
+                <div class="flex rounded-md border border-gray-300 overflow-hidden mb-6 text-sm" role="group" aria-label="Trip Type">
+                    <button type="button" class="flex-1 py-2 bg-gray-700 text-white flex items-center justify-center gap-1" aria-pressed="true">
+                        <i class="fas fa-check-circle text-xs" aria-hidden="true"></i> Round-trip
                     </button>
-                    <button class="flex-1 py-2 bg-white text-gray-600 border-l border-r border-gray-200 hover:bg-gray-50">One-way</button>
-                    <button class="flex-1 py-2 bg-white text-gray-600 hover:bg-gray-50">Multi-city</button>
+                    <button type="button" class="flex-1 py-2 bg-white text-gray-600 border-l border-r border-gray-200 hover:bg-gray-50" aria-pressed="false">One-way</button>
+                    <button type="button" class="flex-1 py-2 bg-white text-gray-600 hover:bg-gray-50" aria-pressed="false">Multi-city</button>
                 </div>
 
                 <!-- Form Fields -->
-                <div class="space-y-5">
+                <form class="space-y-5" onsubmit="event.preventDefault(); navigateToResults();">
                     
                     <!-- From -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">From</label>
+                        <label for="input-from" class="block text-sm font-medium text-gray-700 mb-1">From</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-search text-gray-400"></i>
+                                <i class="fas fa-search text-gray-400" aria-hidden="true"></i>
                             </div>
-                            <input type="text" placeholder="Enter city or airport" class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                            <input id="input-from" type="text" placeholder="Enter city or airport" class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <i class="fas fa-caret-down text-gray-400"></i>
+                                <i class="fas fa-caret-down text-gray-400" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
 
                     <!-- To -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">To</label>
+                        <label for="input-to" class="block text-sm font-medium text-gray-700 mb-1">To</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-search text-gray-400"></i>
+                                <i class="fas fa-search text-gray-400" aria-hidden="true"></i>
                             </div>
-                            <input type="text" placeholder="Enter city or airport" class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                            <input id="input-to" type="text" placeholder="Enter city or airport" class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <i class="fas fa-caret-down text-gray-400"></i>
+                                <i class="fas fa-caret-down text-gray-400" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -121,20 +121,20 @@
                     <!-- Dates -->
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Departure Date</label>
+                            <label for="input-depart" class="block text-sm font-medium text-gray-700 mb-1">Departure Date</label>
                             <div class="relative">
-                                <input type="text" placeholder="Select Date" class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                                <input id="input-depart" type="date" class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-600">
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <i class="far fa-calendar-alt text-gray-500"></i>
+                                    <i class="far fa-calendar-alt text-gray-500" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Return Date</label>
+                            <label for="input-return" class="block text-sm font-medium text-gray-700 mb-1">Return Date</label>
                             <div class="relative">
-                                <input type="text" placeholder="Select Date" class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+                                <input id="input-return" type="date" class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-600">
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <i class="far fa-calendar-alt text-gray-500"></i>
+                                    <i class="far fa-calendar-alt text-gray-500" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -142,36 +142,35 @@
 
                     <!-- Passengers -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Passengers</label>
+                        <label for="select-passengers" class="block text-sm font-medium text-gray-700 mb-1">Passengers</label>
                         <div class="relative">
-                            <select class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md appearance-none bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+                            <select id="select-passengers" class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md appearance-none bg-white focus:ring-2 focus:ring-blue-500 outline-none">
                                 <option>1 Adult | 0 Children</option>
                                 <option>2 Adults | 0 Children</option>
                                 <option>2 Adults | 1 Child</option>
                             </select>
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <i class="fas fa-caret-down text-gray-400"></i>
+                                <i class="fas fa-caret-down text-gray-400" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
 
                     <!-- Cabin Class -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Cabin Class</label>
+                        <label for="select-cabin" class="block text-sm font-medium text-gray-700 mb-1">Cabin Class</label>
                         <div class="relative">
-                            <select class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md appearance-none bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+                            <select id="select-cabin" class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md appearance-none bg-white focus:ring-2 focus:ring-blue-500 outline-none">
                                 <option>Economy</option>
                                 <option>Premium Economy</option>
                                 <option>Business</option>
                                 <option>First Class</option>
                             </select>
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <i class="fas fa-caret-down text-gray-400"></i>
+                                <i class="fas fa-caret-down text-gray-400" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
-
-                </div>
+                </form>
             </main>
 
             <!-- Footer Action -->
@@ -190,16 +189,16 @@
                 <div class="text-xl font-bold tracking-wider mb-6">LOGO</div>
                 
                 <!-- Progress Steps -->
-                <div class="flex items-center justify-between mb-2 px-4">
-                    <div class="flex flex-col items-center relative z-10 cursor-pointer" onclick="navigateToSearch()">
+                <div class="flex items-center justify-between mb-2 px-4" role="list">
+                    <button class="flex flex-col items-center relative z-10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-full" onclick="navigateToSearch()" aria-label="Go back to search">
                         <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center font-bold text-sm">1</div>
+                    </button>
+                    <div class="flex-1 h-0.5 bg-gray-700 mx-2 relative top-[-10px]" aria-hidden="true"></div>
+                    <div class="flex flex-col items-center relative z-10" role="listitem">
+                        <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center font-bold text-sm" aria-current="step">2</div>
                     </div>
-                    <div class="flex-1 h-0.5 bg-gray-700 mx-2 relative top-[-10px]"></div>
-                    <div class="flex flex-col items-center relative z-10">
-                        <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center font-bold text-sm">2</div>
-                    </div>
-                    <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative top-[-10px]"></div>
-                    <div class="flex flex-col items-center relative z-10">
+                    <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative top-[-10px]" aria-hidden="true"></div>
+                    <div class="flex flex-col items-center relative z-10" role="listitem">
                         <div class="w-8 h-8 rounded-full bg-white border-2 border-gray-300 text-gray-400 flex items-center justify-center font-bold text-sm">2</div>
                     </div>
                 </div>
@@ -216,33 +215,33 @@
                 
                 <!-- Summary -->
                 <div class="text-center mb-6">
-                    <p class="text-gray-800 font-medium">New York (JFK) <i class="fas fa-arrow-right text-xs mx-1"></i> London (LHR)</p>
+                    <p class="text-gray-800 font-medium">New York (JFK) <i class="fas fa-arrow-right text-xs mx-1" aria-hidden="true"></i> London (LHR)</p>
                     <p class="text-gray-500 text-sm mt-1">May 10 - May 17, Round-trip</p>
                 </div>
 
                 <!-- Sort -->
                 <div class="flex items-center justify-end mb-4">
-                    <span class="text-sm text-gray-600 mr-2">Sort by:</span>
+                    <label for="sort-select" class="text-sm text-gray-600 mr-2">Sort by:</label>
                     <div class="relative">
-                        <select class="appearance-none bg-white border border-gray-300 text-gray-700 py-1 pl-3 pr-8 rounded text-sm focus:outline-none focus:border-blue-500">
+                        <select id="sort-select" class="appearance-none bg-white border border-gray-300 text-gray-700 py-1 pl-3 pr-8 rounded text-sm focus:outline-none focus:border-blue-500">
                             <option>Price</option>
                             <option>Duration</option>
                             <option>Departure Time</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <i class="fas fa-caret-down text-xs"></i>
+                            <i class="fas fa-caret-down text-xs" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- Flight List -->
-                <div class="space-y-4">
+                <div class="space-y-4" role="radiogroup" aria-label="Flight options">
                     
                     <!-- Flight 1 -->
-                    <div class="flight-card border border-gray-300 rounded-lg p-4 cursor-pointer transition hover:shadow-md" onclick="selectFlight(this)">
+                    <button type="button" class="flight-card w-full text-left border border-gray-300 rounded-lg p-4 cursor-pointer transition hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="selectFlight(this)" aria-checked="false" role="radio">
                         <div class="flex justify-between items-start mb-2">
                             <div class="text-lg font-semibold text-gray-800">
-                                10:00 AM <i class="fas fa-long-arrow-alt-right text-gray-400 mx-1"></i> 10:00 PM
+                                10:00 AM <i class="fas fa-long-arrow-alt-right text-gray-400 mx-1" aria-hidden="true"></i> 10:00 PM
                             </div>
                             <div class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">Direct</div>
                         </div>
@@ -251,17 +250,17 @@
                                 <p class="text-sm text-gray-600">ABC Airlines - AB123</p>
                                 <p class="text-xs text-gray-500 mt-1">7h 7m - Direct</p>
                             </div>
-                            <button class="bg-white border border-gray-800 text-gray-900 font-bold py-1 px-4 rounded text-lg shadow-sm">
+                            <span class="price-badge bg-white border border-gray-800 text-gray-900 font-bold py-1 px-4 rounded text-lg shadow-sm inline-block">
                                 $500
-                            </button>
+                            </span>
                         </div>
-                    </div>
+                    </button>
 
                     <!-- Flight 2 -->
-                    <div class="flight-card border border-gray-300 rounded-lg p-4 cursor-pointer transition hover:shadow-md" onclick="selectFlight(this)">
+                    <button type="button" class="flight-card w-full text-left border border-gray-300 rounded-lg p-4 cursor-pointer transition hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="selectFlight(this)" aria-checked="false" role="radio">
                         <div class="flex justify-between items-start mb-2">
                             <div class="text-lg font-semibold text-gray-800">
-                                12:30 PM <i class="fas fa-long-arrow-alt-right text-gray-400 mx-1"></i> 2:30 AM
+                                12:30 PM <i class="fas fa-long-arrow-alt-right text-gray-400 mx-1" aria-hidden="true"></i> 2:30 AM
                             </div>
                             <div class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">1 stop</div>
                         </div>
@@ -270,17 +269,17 @@
                                 <p class="text-sm text-gray-600">XYZ Airways - XY456</p>
                                 <p class="text-xs text-gray-500 mt-1">11h 30m - 1 stop</p>
                             </div>
-                            <button class="bg-white border border-gray-800 text-gray-900 font-bold py-1 px-4 rounded text-lg shadow-sm">
+                            <span class="price-badge bg-white border border-gray-800 text-gray-900 font-bold py-1 px-4 rounded text-lg shadow-sm inline-block">
                                 $450
-                            </button>
+                            </span>
                         </div>
-                    </div>
+                    </button>
 
                     <!-- Flight 3 -->
-                    <div class="flight-card border border-gray-300 rounded-lg p-4 cursor-pointer transition hover:shadow-md" onclick="selectFlight(this)">
+                    <button type="button" class="flight-card w-full text-left border border-gray-300 rounded-lg p-4 cursor-pointer transition hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="selectFlight(this)" aria-checked="false" role="radio">
                         <div class="flex justify-between items-start mb-2">
                             <div class="text-lg font-semibold text-gray-800">
-                                1:00 PM <i class="fas fa-long-arrow-alt-right text-gray-400 mx-1"></i> 1:00 AM
+                                1:00 PM <i class="fas fa-long-arrow-alt-right text-gray-400 mx-1" aria-hidden="true"></i> 1:00 AM
                             </div>
                             <div class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">1 stop</div>
                         </div>
@@ -289,11 +288,11 @@
                                 <p class="text-sm text-gray-600">Jet Worldwide - JW789</p>
                                 <p class="text-xs text-gray-500 mt-1">10h 10m - 1 stop</p>
                             </div>
-                            <button class="bg-white border border-gray-800 text-gray-900 font-bold py-1 px-4 rounded text-lg shadow-sm">
+                            <span class="price-badge bg-white border border-gray-800 text-gray-900 font-bold py-1 px-4 rounded text-lg shadow-sm inline-block">
                                 $475
-                            </button>
+                            </span>
                         </div>
-                    </div>
+                    </button>
 
                 </div>
             </main>
@@ -337,19 +336,21 @@
             // Remove selected class from all cards
             document.querySelectorAll('.flight-card').forEach(card => {
                 card.classList.remove('selected');
-                // Reset button style inside card
-                const btn = card.querySelector('button');
-                btn.classList.remove('bg-gray-800', 'text-white');
-                btn.classList.add('bg-white', 'text-gray-900');
+                card.setAttribute('aria-checked', 'false');
+                // Reset badge style inside card
+                const badge = card.querySelector('.price-badge');
+                badge.classList.remove('bg-gray-800', 'text-white');
+                badge.classList.add('bg-white', 'text-gray-900');
             });
 
             // Add selected class to clicked card
             cardElement.classList.add('selected');
+            cardElement.setAttribute('aria-checked', 'true');
             
-            // Highlight the price button inside
-            const btn = cardElement.querySelector('button');
-            btn.classList.remove('bg-white', 'text-gray-900');
-            btn.classList.add('bg-gray-800', 'text-white');
+            // Highlight the price badge inside
+            const badge = cardElement.querySelector('.price-badge');
+            badge.classList.remove('bg-white', 'text-gray-900');
+            badge.classList.add('bg-gray-800', 'text-white');
 
             // Enable main Select button
             btnSelect.disabled = false;
