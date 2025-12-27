@@ -3,359 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flight Booking Prototype</title>
+    <title>Flight Booking App Prototype</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
         
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Custom Scrollbar for cleaner mobile look */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 3px;
-        }
-
-        /* Smooth fade transition for screens */
-        .fade-in {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Selected Flight Card State */
-        .flight-card.selected {
-            border-color: #2563eb;
-            background-color: #eff6ff;
-        }
+        /* Hide scrollbar for clean mobile look */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Smooth fade transition */
+        .fade-transition { transition: opacity 0.3s ease-in-out; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 flex justify-center min-h-screen">
+<body class="bg-gray-100 h-screen flex items-center justify-center p-4">
 
-    <!-- Mobile Container -->
-    <div class="w-full max-w-md bg-white shadow-2xl min-h-screen relative flex flex-col">
+    <!-- Mobile Device Container -->
+    <div class="relative bg-white w-full max-w-[400px] h-[850px] max-h-[90vh] rounded-[3rem] shadow-2xl border-[8px] border-gray-800 overflow-hidden flex flex-col">
         
+        <!-- Notch -->
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-40 h-7 bg-gray-800 rounded-b-xl z-50"></div>
+
         <!-- SCREEN 1: SEARCH FLIGHTS -->
-        <div id="screen-search" class="flex flex-col h-full fade-in">
+        <div id="screen-search" class="flex-1 flex flex-col w-full h-full overflow-y-auto no-scrollbar pt-12 pb-8 px-6 fade-transition opacity-100">
             
             <!-- Header -->
-            <header class="px-6 pt-8 pb-4">
-                <div class="text-xl font-bold tracking-wider mb-6">LOGO</div>
-                
-                <!-- Progress Steps -->
-                <div class="flex items-center justify-between mb-2 px-4" role="list">
-                    <div class="flex flex-col items-center relative z-10" role="listitem">
-                        <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center font-bold text-sm" aria-current="step">1</div>
+            <div class="mb-6">
+                <div class="text-xl font-bold text-gray-800 mb-4">LOGO</div>
+                <!-- Progress Stepper -->
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center w-full">
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-700 text-white font-bold text-sm">1</div>
+                        <div class="flex-1 h-0.5 bg-gray-300 mx-2"></div>
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-300 text-gray-400 font-bold text-sm">2</div>
+                        <div class="flex-1 h-0.5 bg-transparent mx-2"></div>
                     </div>
-                    <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative top-[-10px]" aria-hidden="true"></div>
-                    <div class="flex flex-col items-center relative z-10" role="listitem">
-                        <div class="w-8 h-8 rounded-full bg-white border-2 border-gray-300 text-gray-400 flex items-center justify-center font-bold text-sm">2</div>
-                    </div>
-                    <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative top-[-10px]" aria-hidden="true"></div>
-                    <div class="w-4"></div> <!-- Spacer for arrow visual -->
-                    <i class="fas fa-chevron-right text-gray-400 absolute right-6 top-[86px]" aria-hidden="true"></i>
                 </div>
-                <div class="flex justify-between text-sm text-gray-600 px-2">
-                    <span class="font-medium text-gray-900">Search</span>
-                    <span class="text-gray-400">Select Flight</span>
+                <div class="text-sm text-gray-500 font-medium">Search &rarr; Select Flight</div>
+            </div>
+
+            <h1 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Search Flights</h1>
+
+            <!-- Trip Type Toggle -->
+            <div class="flex rounded-lg border border-gray-300 overflow-hidden mb-6 shadow-sm">
+                <button class="flex-1 py-2 bg-gray-700 text-white text-xs font-medium flex items-center justify-center gap-1">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    Round-trip
+                </button>
+                <button class="flex-1 py-2 bg-white text-gray-600 text-xs font-medium border-l border-gray-200 hover:bg-gray-50">One-way</button>
+                <button class="flex-1 py-2 bg-white text-gray-600 text-xs font-medium border-l border-gray-200 hover:bg-gray-50">Multi-city</button>
+            </div>
+
+            <!-- Search Form -->
+            <div class="space-y-5">
+                <!-- From Input -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">From</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <input type="text" placeholder="Enter city or airport" class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none transition-shadow">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                        </div>
+                    </div>
                 </div>
-            </header>
 
-            <hr class="border-gray-200">
-
-            <!-- Main Content -->
-            <main class="flex-1 px-6 py-6 overflow-y-auto">
-                <h1 class="text-2xl font-semibold text-center mb-6">Search Flights</h1>
-
-                <!-- Trip Type Toggle -->
-                <div class="flex rounded-md border border-gray-300 overflow-hidden mb-6 text-sm" role="group" aria-label="Trip Type">
-                    <button type="button" class="flex-1 py-2 bg-gray-700 text-white flex items-center justify-center gap-1" aria-pressed="true">
-                        <i class="fas fa-check-circle text-xs" aria-hidden="true"></i> Round-trip
-                    </button>
-                    <button type="button" class="flex-1 py-2 bg-white text-gray-600 border-l border-r border-gray-200 hover:bg-gray-50" aria-pressed="false">One-way</button>
-                    <button type="button" class="flex-1 py-2 bg-white text-gray-600 hover:bg-gray-50" aria-pressed="false">Multi-city</button>
+                <!-- To Input -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">To</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <input type="text" placeholder="Enter city or airport" class="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none transition-shadow">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Form Fields -->
-                <form class="space-y-5" onsubmit="event.preventDefault(); navigateToResults();">
-                    
-                    <!-- From -->
+                <!-- Dates Grid -->
+                <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label for="input-from" class="block text-sm font-medium text-gray-700 mb-1">From</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Departure Date</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-search text-gray-400" aria-hidden="true"></i>
-                            </div>
-                            <input id="input-from" type="text" placeholder="Enter city or airport" class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                            <input type="text" placeholder="Select Date" class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 outline-none">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <i class="fas fa-caret-down text-gray-400" aria-hidden="true"></i>
+                                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             </div>
                         </div>
                     </div>
-
-                    <!-- To -->
                     <div>
-                        <label for="input-to" class="block text-sm font-medium text-gray-700 mb-1">To</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Return Date</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-search text-gray-400" aria-hidden="true"></i>
-                            </div>
-                            <input id="input-to" type="text" placeholder="Enter city or airport" class="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                            <input type="text" placeholder="Select Date" class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-gray-500 outline-none">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <i class="fas fa-caret-down text-gray-400" aria-hidden="true"></i>
+                                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Dates -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label for="input-depart" class="block text-sm font-medium text-gray-700 mb-1">Departure Date</label>
-                            <div class="relative">
-                                <input id="input-depart" type="date" class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-600">
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <i class="far fa-calendar-alt text-gray-500" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="input-return" class="block text-sm font-medium text-gray-700 mb-1">Return Date</label>
-                            <div class="relative">
-                                <input id="input-return" type="date" class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-600">
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <i class="far fa-calendar-alt text-gray-500" aria-hidden="true"></i>
-                                </div>
-                            </div>
+                <!-- Passengers -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Passengers</label>
+                    <div class="relative">
+                        <select class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm appearance-none focus:ring-2 focus:ring-gray-500 outline-none bg-white">
+                            <option>1 Adult | 0 Children</option>
+                            <option>2 Adults | 0 Children</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Passengers -->
-                    <div>
-                        <label for="select-passengers" class="block text-sm font-medium text-gray-700 mb-1">Passengers</label>
-                        <div class="relative">
-                            <select id="select-passengers" class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md appearance-none bg-white focus:ring-2 focus:ring-blue-500 outline-none">
-                                <option>1 Adult | 0 Children</option>
-                                <option>2 Adults | 0 Children</option>
-                                <option>2 Adults | 1 Child</option>
-                            </select>
-                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <i class="fas fa-caret-down text-gray-400" aria-hidden="true"></i>
-                            </div>
+                <!-- Cabin Class -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Cabin Class</label>
+                    <div class="relative">
+                        <select class="block w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md text-sm appearance-none focus:ring-2 focus:ring-gray-500 outline-none bg-white">
+                            <option>Economy</option>
+                            <option>Business</option>
+                            <option>First Class</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Cabin Class -->
-                    <div>
-                        <label for="select-cabin" class="block text-sm font-medium text-gray-700 mb-1">Cabin Class</label>
-                        <div class="relative">
-                            <select id="select-cabin" class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-md appearance-none bg-white focus:ring-2 focus:ring-blue-500 outline-none">
-                                <option>Economy</option>
-                                <option>Premium Economy</option>
-                                <option>Business</option>
-                                <option>First Class</option>
-                            </select>
-                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <i class="fas fa-caret-down text-gray-400" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </main>
-
-            <!-- Footer Action -->
-            <div class="p-6 border-t border-gray-100">
-                <button onclick="navigateToResults()" class="w-full bg-white border-2 border-gray-800 text-gray-800 font-bold py-4 rounded shadow-sm hover:bg-gray-50 active:bg-gray-100 transition uppercase tracking-wide">
+            <!-- CTA Button -->
+            <div class="mt-8">
+                <button onclick="navigateToResults()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold py-4 px-4 border border-gray-400 rounded shadow-sm tracking-wide uppercase transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                     Search Flights
                 </button>
             </div>
+            
+            <!-- Home Button Indicator -->
+            <div class="mt-auto pt-6 flex justify-center">
+                <div class="w-12 h-12 rounded-full border-2 border-gray-400"></div>
+            </div>
         </div>
 
-        <!-- SCREEN 2: SELECT FLIGHT -->
-        <div id="screen-results" class="hidden flex-col h-full fade-in">
+        <!-- SCREEN 2: SELECT FLIGHT (Hidden by default) -->
+        <div id="screen-results" class="hidden flex-1 flex flex-col w-full h-full overflow-y-auto no-scrollbar pt-12 pb-8 px-6 fade-transition opacity-0">
+             <!-- Header -->
+             <div class="mb-4">
+                <div class="text-xl font-bold text-gray-800 mb-4">LOGO</div>
+                <!-- Progress Stepper -->
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center w-full">
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-700 text-white font-bold text-sm">1</div>
+                        <div class="flex-1 h-0.5 bg-gray-700 mx-2"></div>
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-700 text-white font-bold text-sm">2</div>
+                        <div class="flex-1 h-0.5 bg-transparent mx-2"></div>
+                    </div>
+                </div>
+                <div class="text-sm text-gray-500 font-medium">Select Flight</div>
+            </div>
+
+            <h1 class="text-2xl font-semibold text-gray-800 mb-2 text-center">Select Flight</h1>
             
-            <!-- Header -->
-            <header class="px-6 pt-8 pb-4">
-                <div class="text-xl font-bold tracking-wider mb-6">LOGO</div>
-                
-                <!-- Progress Steps -->
-                <div class="flex items-center justify-between mb-2 px-4" role="list">
-                    <button class="flex flex-col items-center relative z-10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-full" onclick="navigateToSearch()" aria-label="Go back to search">
-                        <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center font-bold text-sm">1</div>
-                    </button>
-                    <div class="flex-1 h-0.5 bg-gray-700 mx-2 relative top-[-10px]" aria-hidden="true"></div>
-                    <div class="flex flex-col items-center relative z-10" role="listitem">
-                        <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center font-bold text-sm" aria-current="step">2</div>
+            <!-- Flight Summary -->
+            <div class="text-center mb-5">
+                <div class="text-gray-900 font-medium text-lg">New York (JFK) &rarr; London (LHR)</div>
+                <div class="text-gray-500 text-sm">May 10 - May 17, Round-trip</div>
+            </div>
+
+            <!-- Sort Filter -->
+            <div class="flex items-center justify-end mb-4">
+                <span class="text-sm text-gray-600 mr-2">Sort by:</span>
+                <div class="relative">
+                    <select class="appearance-none bg-white border border-gray-300 text-gray-700 py-1 pl-3 pr-8 rounded leading-tight focus:outline-none focus:border-gray-500 text-sm">
+                        <option>Price</option>
+                        <option>Duration</option>
+                        <option>Departure</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                     </div>
-                    <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative top-[-10px]" aria-hidden="true"></div>
-                    <div class="flex flex-col items-center relative z-10" role="listitem">
-                        <div class="w-8 h-8 rounded-full bg-white border-2 border-gray-300 text-gray-400 flex items-center justify-center font-bold text-sm">2</div>
-                    </div>
                 </div>
-                <div class="flex justify-center text-sm text-gray-900 font-medium px-2">
-                    Select Flight
-                </div>
-            </header>
+            </div>
 
-            <hr class="border-gray-200">
-
-            <!-- Main Content -->
-            <main class="flex-1 px-6 py-4 overflow-y-auto">
-                <h1 class="text-2xl font-semibold text-center mb-2">Select Flight</h1>
-                
-                <!-- Summary -->
-                <div class="text-center mb-6">
-                    <p class="text-gray-800 font-medium">New York (JFK) <i class="fas fa-arrow-right text-xs mx-1" aria-hidden="true"></i> London (LHR)</p>
-                    <p class="text-gray-500 text-sm mt-1">May 10 - May 17, Round-trip</p>
-                </div>
-
-                <!-- Sort -->
-                <div class="flex items-center justify-end mb-4">
-                    <label for="sort-select" class="text-sm text-gray-600 mr-2">Sort by:</label>
-                    <div class="relative">
-                        <select id="sort-select" class="appearance-none bg-white border border-gray-300 text-gray-700 py-1 pl-3 pr-8 rounded text-sm focus:outline-none focus:border-blue-500">
-                            <option>Price</option>
-                            <option>Duration</option>
-                            <option>Departure Time</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <i class="fas fa-caret-down text-xs" aria-hidden="true"></i>
+            <!-- Flight Cards List -->
+            <div class="space-y-4">
+                <!-- Card 1 -->
+                <div class="border border-gray-300 rounded-lg p-4 flex justify-between items-center bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                    <div class="flex-1">
+                        <div class="flex items-center text-gray-900 font-bold text-lg mb-1">
+                            10:00 AM <span class="mx-2 text-gray-400 font-normal text-sm">&rarr;</span> 10:00 PM
+                            <span class="ml-2 text-xs font-normal text-gray-500 bg-gray-100 px-1 rounded">Direct</span>
                         </div>
+                        <div class="text-sm text-gray-600 mb-1">ABC Airlines - AB123</div>
+                        <div class="text-xs text-gray-500">7h 7m - Direct</div>
+                    </div>
+                    <div class="ml-2">
+                        <button class="border-2 border-gray-800 text-gray-900 font-bold py-1 px-3 rounded hover:bg-gray-800 hover:text-white transition-colors text-lg">
+                            $500
+                        </button>
                     </div>
                 </div>
 
-                <!-- Flight List -->
-                <div class="space-y-4" role="radiogroup" aria-label="Flight options">
-                    
-                    <!-- Flight 1 -->
-                    <button type="button" class="flight-card w-full text-left border border-gray-300 rounded-lg p-4 cursor-pointer transition hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="selectFlight(this)" aria-checked="false" role="radio">
-                        <div class="flex justify-between items-start mb-2">
-                            <div class="text-lg font-semibold text-gray-800">
-                                10:00 AM <i class="fas fa-long-arrow-alt-right text-gray-400 mx-1" aria-hidden="true"></i> 10:00 PM
-                            </div>
-                            <div class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">Direct</div>
+                <!-- Card 2 -->
+                <div class="border border-gray-300 rounded-lg p-4 flex justify-between items-center bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                    <div class="flex-1">
+                        <div class="flex items-center text-gray-900 font-bold text-lg mb-1">
+                            12:30 PM <span class="mx-2 text-gray-400 font-normal text-sm">&rarr;</span> 2:30 AM
+                            <span class="ml-2 text-xs font-normal text-gray-500 bg-gray-100 px-1 rounded">1 stop</span>
                         </div>
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <p class="text-sm text-gray-600">ABC Airlines - AB123</p>
-                                <p class="text-xs text-gray-500 mt-1">7h 7m - Direct</p>
-                            </div>
-                            <span class="price-badge bg-white border border-gray-800 text-gray-900 font-bold py-1 px-4 rounded text-lg shadow-sm inline-block">
-                                $500
-                            </span>
-                        </div>
-                    </button>
-
-                    <!-- Flight 2 -->
-                    <button type="button" class="flight-card w-full text-left border border-gray-300 rounded-lg p-4 cursor-pointer transition hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="selectFlight(this)" aria-checked="false" role="radio">
-                        <div class="flex justify-between items-start mb-2">
-                            <div class="text-lg font-semibold text-gray-800">
-                                12:30 PM <i class="fas fa-long-arrow-alt-right text-gray-400 mx-1" aria-hidden="true"></i> 2:30 AM
-                            </div>
-                            <div class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">1 stop</div>
-                        </div>
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <p class="text-sm text-gray-600">XYZ Airways - XY456</p>
-                                <p class="text-xs text-gray-500 mt-1">11h 30m - 1 stop</p>
-                            </div>
-                            <span class="price-badge bg-white border border-gray-800 text-gray-900 font-bold py-1 px-4 rounded text-lg shadow-sm inline-block">
-                                $450
-                            </span>
-                        </div>
-                    </button>
-
-                    <!-- Flight 3 -->
-                    <button type="button" class="flight-card w-full text-left border border-gray-300 rounded-lg p-4 cursor-pointer transition hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" onclick="selectFlight(this)" aria-checked="false" role="radio">
-                        <div class="flex justify-between items-start mb-2">
-                            <div class="text-lg font-semibold text-gray-800">
-                                1:00 PM <i class="fas fa-long-arrow-alt-right text-gray-400 mx-1" aria-hidden="true"></i> 1:00 AM
-                            </div>
-                            <div class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">1 stop</div>
-                        </div>
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <p class="text-sm text-gray-600">Jet Worldwide - JW789</p>
-                                <p class="text-xs text-gray-500 mt-1">10h 10m - 1 stop</p>
-                            </div>
-                            <span class="price-badge bg-white border border-gray-800 text-gray-900 font-bold py-1 px-4 rounded text-lg shadow-sm inline-block">
-                                $475
-                            </span>
-                        </div>
-                    </button>
-
+                        <div class="text-sm text-gray-600 mb-1">XYZ Airways - XY456</div>
+                        <div class="text-xs text-gray-500">11h 30m - 1 stop</div>
+                    </div>
+                    <div class="ml-2">
+                        <button class="border-2 border-gray-800 text-gray-900 font-bold py-1 px-3 rounded hover:bg-gray-800 hover:text-white transition-colors text-lg">
+                            $450
+                        </button>
+                    </div>
                 </div>
-            </main>
 
-            <!-- Footer Action -->
-            <div class="p-6 border-t border-gray-100">
-                <button id="btn-select" class="w-full bg-white border-2 border-gray-800 text-gray-800 font-bold py-4 rounded shadow-sm hover:bg-gray-50 active:bg-gray-100 transition uppercase tracking-wide opacity-50 cursor-not-allowed" disabled>
+                <!-- Card 3 -->
+                <div class="border border-gray-300 rounded-lg p-4 flex justify-between items-center bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                    <div class="flex-1">
+                        <div class="flex items-center text-gray-900 font-bold text-lg mb-1">
+                            1:00 PM <span class="mx-2 text-gray-400 font-normal text-sm">&rarr;</span> 1:00 AM
+                            <span class="ml-2 text-xs font-normal text-gray-500 bg-gray-100 px-1 rounded">1 stop</span>
+                        </div>
+                        <div class="text-sm text-gray-600 mb-1">Jet Worldwide - JW789</div>
+                        <div class="text-xs text-gray-500">10h 10m - 1 stop</div>
+                    </div>
+                    <div class="ml-2">
+                        <button class="border-2 border-gray-800 text-gray-900 font-bold py-1 px-3 rounded hover:bg-gray-800 hover:text-white transition-colors text-lg">
+                            $475
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="mt-8">
+                <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold py-4 px-4 border border-gray-400 rounded shadow-sm tracking-wide uppercase transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                     Select
                 </button>
+            </div>
+
+            <!-- Home Button Indicator -->
+            <div class="mt-auto pt-6 flex justify-center">
+                <div class="w-12 h-12 rounded-full border-2 border-gray-400"></div>
             </div>
         </div>
 
     </div>
 
-    <!-- Application Logic -->
+    <!-- Navigation Logic -->
     <script>
-        const screenSearch = document.getElementById('screen-search');
-        const screenResults = document.getElementById('screen-results');
-        const btnSelect = document.getElementById('btn-select');
-
         function navigateToResults() {
-            // Simple validation simulation
-            const inputs = screenSearch.querySelectorAll('input');
-            let valid = true;
-            // In a real app, check values here. For prototype, we proceed.
+            const searchScreen = document.getElementById('screen-search');
+            const resultsScreen = document.getElementById('screen-results');
             
-            screenSearch.classList.add('hidden');
-            screenResults.classList.remove('hidden');
-            screenResults.classList.add('flex');
-            window.scrollTo(0,0);
-        }
-
-        function navigateToSearch() {
-            screenResults.classList.add('hidden');
-            screenResults.classList.remove('flex');
-            screenSearch.classList.remove('hidden');
-            window.scrollTo(0,0);
-        }
-
-        function selectFlight(cardElement) {
-            // Remove selected class from all cards
-            document.querySelectorAll('.flight-card').forEach(card => {
-                card.classList.remove('selected');
-                card.setAttribute('aria-checked', 'false');
-                // Reset badge style inside card
-                const badge = card.querySelector('.price-badge');
-                badge.classList.remove('bg-gray-800', 'text-white');
-                badge.classList.add('bg-white', 'text-gray-900');
-            });
-
-            // Add selected class to clicked card
-            cardElement.classList.add('selected');
-            cardElement.setAttribute('aria-checked', 'true');
+            // Fade out current screen
+            searchScreen.style.opacity = '0';
             
-            // Highlight the price badge inside
-            const badge = cardElement.querySelector('.price-badge');
-            badge.classList.remove('bg-white', 'text-gray-900');
-            badge.classList.add('bg-gray-800', 'text-white');
-
-            // Enable main Select button
-            btnSelect.disabled = false;
-            btnSelect.classList.remove('opacity-50', 'cursor-not-allowed');
-            btnSelect.onclick = () => alert("Flight Selected! Proceeding to checkout...");
+            setTimeout(() => {
+                searchScreen.classList.add('hidden');
+                resultsScreen.classList.remove('hidden');
+                
+                // Trigger reflow to enable transition
+                void resultsScreen.offsetWidth;
+                
+                // Fade in new screen
+                resultsScreen.style.opacity = '1';
+            }, 300);
         }
     </script>
 
